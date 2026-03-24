@@ -13,7 +13,7 @@
     --border-active: rgba(180,160,120,0.55);
     --gold: #c9a96e;
     --gold-dim: rgba(201,169,110,0.6);
-    --text: #e8e0d0;
+    --text: #eeeee9;
     --text-dim: #8a8070;
     --text-muted: #4a4540;
     --error: #c06060;
@@ -69,18 +69,44 @@
     margin-bottom: 20px;
   }
 
-  .form-title {
+  .form-title-line1 {
     font-family: 'Cormorant Garamond', serif;
     font-weight: 300;
-    font-size: clamp(28px, 5vw, 42px);
-    line-height: 1.15;
+    font-size: clamp(22px, 4vw, 34px);
+    line-height: 1.2;
     color: var(--text);
     letter-spacing: 0.02em;
+    display: block;
   }
 
-  .form-title em {
+  .form-title-gold {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
     font-style: italic;
-    color: var(--gold);
+    font-size: clamp(26px, 5vw, 42px);
+    line-height: 1.15;
+    letter-spacing: 0.02em;
+    display: block;
+    background: linear-gradient(135deg, #B38B00 0%, #F6E27A 40%, #EFBF04 60%, #B38B00 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: #EFBF04;
+  }
+
+  .site-link {
+    display: block;
+    margin-top: 12px;
+    font-family: 'Jost', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(201,169,110,0.45);
+    text-decoration: none;
+  }
+
+  .site-link:hover {
+    color: var(--gold-dim);
   }
 
   .divider {
@@ -389,7 +415,9 @@
 
   <div class="header">
     <p class="org-name">Institute of Quantum Frequency</p>
-    <h1 class="form-title">Frequency Activation Protocol<br><em>Daily Index</em></h1>
+    <span class="form-title-line1">Frequency Activation Protocol</span>
+    <span class="form-title-gold">Daily Index</span>
+    <a class="site-link" href="https://www.instituteofquantumfrequency.com/" target="_blank">instituteofquantumfrequency.com</a>
     <div class="divider"></div>
   </div>
 
@@ -796,7 +824,7 @@
 </div>
 
 <script>
-  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyGyz9gRISGziw5zwN1P_dk67hzh8dBRkjNatxbs0kMUNd8HY39zcAjnlG3Ow00Fpo/exec';
+  const SCRIPT_URL = 'YOUR_APPS_SCRIPT_WEB_APP_URL_HERE';
 
   let currentSection = 0;
   const totalSections = 22;
