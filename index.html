@@ -7,18 +7,18 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0a0a0f;
-    --surface: #111118;
-    --border: rgba(180,160,120,0.18);
-    --border-active: rgba(180,160,120,0.55);
-    --gold: #c9a96e;
-    --gold-dim: rgba(201,169,110,0.6);
-    --text: #eeeee9;
-    --text-dim: #8a8070;
-    --text-muted: #4a4540;
-    --error: #c06060;
-    --success: #6a9e7a;
-    --radius: 2px;
+    --bg: #f5f4f0;
+    --surface: #eeeee9;
+    --border: rgba(180,140,60,0.2);
+    --border-active: rgba(180,140,60,0.5);
+    --gold: #8a6a30;
+    --gold-dim: rgba(138,106,48,0.6);
+    --gold-bright: #c9a96e;
+    --text: #1a1610;
+    --text-dim: rgba(50,40,30,0.55);
+    --text-muted: rgba(50,40,30,0.35);
+    --error: #a03030;
+    --success: #3a6a48;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -41,8 +41,8 @@
     position: fixed;
     inset: 0;
     background:
-      radial-gradient(ellipse 80% 60% at 50% 0%, rgba(201,169,110,0.04) 0%, transparent 70%),
-      radial-gradient(ellipse 40% 40% at 20% 80%, rgba(100,80,160,0.04) 0%, transparent 60%);
+      radial-gradient(ellipse 80% 60% at 50% 0%, rgba(201,169,110,0.07) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 80% 90%, rgba(180,140,60,0.05) 0%, transparent 60%);
     pointer-events: none;
     z-index: 0;
   }
@@ -65,7 +65,7 @@
     font-size: 10px;
     letter-spacing: 0.35em;
     text-transform: uppercase;
-    color: var(--gold-dim);
+    color: rgba(201,169,110,0.8);
     margin-bottom: 20px;
   }
 
@@ -87,11 +87,11 @@
     line-height: 1.15;
     letter-spacing: 0.02em;
     display: block;
-    background: linear-gradient(135deg, #B38B00 0%, #F6E27A 40%, #EFBF04 60%, #B38B00 100%);
+    background: linear-gradient(135deg, #8a6000 0%, #c9a040 40%, #a07820 60%, #8a6000 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    color: #EFBF04;
+    color: #8a6a30;
   }
 
   .site-link {
@@ -101,18 +101,18 @@
     font-size: 10px;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: rgba(201,169,110,0.45);
+    color: rgba(138,106,48,0.5);
     text-decoration: none;
   }
 
   .site-link:hover {
-    color: var(--gold-dim);
+    color: var(--gold);
   }
 
   .divider {
     width: 40px;
     height: 1px;
-    background: var(--gold-dim);
+    background: rgba(201,169,110,0.5);
     margin: 24px auto 0;
   }
 
@@ -148,7 +148,7 @@
 
   .progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, var(--gold-dim), var(--gold));
+    background: linear-gradient(90deg, rgba(138,106,48,0.4), #8a6a30);
     transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
@@ -249,16 +249,17 @@
     cursor: pointer;
     transition: border-color 0.2s, background 0.2s;
     position: relative;
+    background: rgba(255,253,248,0.5);
   }
 
   .choice:hover {
     border-color: var(--border-active);
-    background: rgba(201,169,110,0.03);
+    background: rgba(201,169,110,0.06);
   }
 
   .choice.selected {
     border-color: var(--gold);
-    background: rgba(201,169,110,0.06);
+    background: rgba(201,169,110,0.1);
   }
 
   .choice input[type="radio"] {
@@ -349,7 +350,7 @@
   }
 
   .btn-primary:hover {
-    background: rgba(201,169,110,0.08);
+    background: rgba(138,106,48,0.08);
   }
 
   .btn-ghost {
