@@ -3,18 +3,16 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Frequency Activation Protocol Daily Index</title>
+<title>IQF Daily Check-In</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #eeeee9;
-    --surface: #eeeee9;
+    --bg: #f5f4f0;
     --border: rgba(180,140,60,0.2);
     --border-active: rgba(180,140,60,0.5);
     --gold: #8a6a30;
     --gold-dim: rgba(138,106,48,0.6);
-    --gold-bright: #c9a96e;
-    --text: #1a1610;
+    --text: #3a3028;
     --text-dim: rgba(50,40,30,0.55);
     --text-muted: rgba(50,40,30,0.35);
     --error: #a03030;
@@ -74,7 +72,7 @@
     font-weight: 300;
     font-size: clamp(22px, 4vw, 34px);
     line-height: 1.2;
-    color: var(--text);
+    color: #273047;
     letter-spacing: 0.02em;
     display: block;
   }
@@ -87,26 +85,11 @@
     line-height: 1.15;
     letter-spacing: 0.02em;
     display: block;
-    background: linear-gradient(135deg, #8a6000 0%, #c9a040 40%, #a07820 60%, #8a6000 100%);
+    background: linear-gradient(135deg, #7a5200 0%, #b8860a 22%, #d4a830 42%, #c09020 58%, #9a6e10 78%, #7a5200 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     color: #8a6a30;
-  }
-
-  .site-link {
-    display: block;
-    margin-top: 12px;
-    font-family: 'Jost', sans-serif;
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: rgba(138,106,48,0.5);
-    text-decoration: none;
-  }
-
-  .site-link:hover {
-    color: var(--gold);
   }
 
   .divider {
@@ -114,42 +97,6 @@
     height: 1px;
     background: rgba(201,169,110,0.5);
     margin: 24px auto 0;
-  }
-
-  .progress-wrap {
-    margin-bottom: 48px;
-  }
-
-  .progress-meta {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 10px;
-  }
-
-  .progress-label {
-    font-size: 10px;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-  }
-
-  .progress-count {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 13px;
-    color: var(--gold-dim);
-  }
-
-  .progress-bar {
-    height: 1px;
-    background: var(--border);
-    position: relative;
-  }
-
-  .progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, rgba(138,106,48,0.4), #8a6a30);
-    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .section {
@@ -211,17 +158,9 @@
     letter-spacing: 0.02em;
   }
 
-  .field-input:focus {
-    border-bottom-color: var(--gold);
-  }
-
-  .field-input.error-field {
-    border-bottom-color: var(--error);
-  }
-
-  .field-input.valid-field {
-    border-bottom-color: var(--success);
-  }
+  .field-input:focus { border-bottom-color: var(--gold); }
+  .field-input.error-field { border-bottom-color: var(--error); }
+  .field-input.valid-field { border-bottom-color: var(--success); }
 
   .email-match-indicator {
     font-size: 11px;
@@ -262,7 +201,8 @@
     background: rgba(201,169,110,0.1);
   }
 
-  .choice input[type="radio"] {
+  .choice input[type="radio"],
+  .choice input[type="checkbox"] {
     position: absolute;
     opacity: 0;
     pointer-events: none;
@@ -281,9 +221,11 @@
     transition: border-color 0.2s;
   }
 
-  .choice.selected .choice-marker {
-    border-color: var(--gold);
+  .choice-marker.square {
+    border-radius: 2px;
   }
+
+  .choice.selected .choice-marker { border-color: var(--gold); }
 
   .choice-marker::after {
     content: '';
@@ -295,9 +237,11 @@
     transition: opacity 0.15s;
   }
 
-  .choice.selected .choice-marker::after {
-    opacity: 1;
+  .choice-marker.square::after {
+    border-radius: 1px;
   }
+
+  .choice.selected .choice-marker::after { opacity: 1; }
 
   .choice-text {
     font-size: 14px;
@@ -306,8 +250,15 @@
     transition: color 0.2s;
   }
 
-  .choice.selected .choice-text {
-    color: var(--text);
+  .choice.selected .choice-text { color: var(--text); }
+
+  .multi-hint {
+    font-family: 'Jost', sans-serif;
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+    margin-bottom: 16px;
+    font-style: italic;
   }
 
   .error-msg {
@@ -339,46 +290,22 @@
     transition: all 0.2s;
   }
 
-  .btn:hover {
-    border-color: var(--gold);
-    color: var(--gold);
-  }
-
-  .btn-primary {
-    border-color: var(--gold);
-    color: var(--gold);
-  }
-
-  .btn-primary:hover {
-    background: rgba(138,106,48,0.08);
-  }
-
-  .btn-ghost {
-    border-color: transparent;
-    color: var(--text-muted);
-    padding-left: 0;
-  }
-
-  .btn-ghost:hover {
-    border-color: transparent;
-    color: var(--text-dim);
-  }
-
-  .btn:disabled {
-    opacity: 0.3;
-    cursor: not-allowed;
-  }
+  .btn:hover { border-color: var(--gold); color: var(--gold); }
+  .btn-primary { border-color: var(--gold); color: var(--gold); }
+  .btn-primary:hover { background: rgba(138,106,48,0.08); }
+  .btn-ghost { border-color: transparent; color: var(--text-muted); padding-left: 0; }
+  .btn-ghost:hover { border-color: transparent; color: var(--text-dim); }
 
   .submit-state {
     text-align: center;
     padding: 60px 20px;
   }
 
-  .submit-state .glyph {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 48px;
-    color: var(--gold-dim);
-    margin-bottom: 24px;
+  .submit-state img {
+    width: 120px;
+    height: auto;
+    margin-bottom: 28px;
+    opacity: 0.85;
   }
 
   .submit-state h2 {
@@ -405,9 +332,7 @@
     margin: 0 auto 24px;
   }
 
-  @keyframes spin {
-    to { transform: rotate(360deg); }
-  }
+  @keyframes spin { to { transform: rotate(360deg); } }
 </style>
 </head>
 <body>
@@ -416,20 +341,9 @@
 
   <div class="header">
     <p class="org-name">Institute of Quantum Frequency</p>
-    <span class="form-title-line1">Frequency Activation Protocol</span>
-    <span class="form-title-gold">Daily Index</span>
-    <a class="site-link" href="https://www.instituteofquantumfrequency.com/" target="_blank">instituteofquantumfrequency.com</a>
+    <span class="form-title-line1">IQF Pattern Tracking</span>
+    <span class="form-title-gold">Daily Check-In</span>
     <div class="divider"></div>
-  </div>
-
-  <div class="progress-wrap">
-    <div class="progress-meta">
-      <span class="progress-label">Progress</span>
-      <span class="progress-count" id="progressCount">1 of 22</span>
-    </div>
-    <div class="progress-bar">
-      <div class="progress-fill" id="progressFill" style="width: 4.5%"></div>
-    </div>
   </div>
 
   <form id="mainForm" novalidate>
@@ -462,7 +376,7 @@
     <div class="section" id="section-1">
       <p class="question-num">Question 1 of 21</p>
       <p class="question-text">Did you complete the full practice from start to finish without skipping any part?</p>
-      <div class="choices" data-name="q1">
+      <div class="choices" data-name="q1" data-type="radio">
         <label class="choice"><input type="radio" name="q1" value="Yes"><span class="choice-marker"></span><span class="choice-text">Yes</span></label>
         <label class="choice"><input type="radio" name="q1" value="No"><span class="choice-marker"></span><span class="choice-text">No</span></label>
         <label class="choice"><input type="radio" name="q1" value="Paused but returned"><span class="choice-marker"></span><span class="choice-text">Paused but returned</span></label>
@@ -478,7 +392,7 @@
     <div class="section" id="section-2">
       <p class="question-num">Question 2 of 21</p>
       <p class="question-text">If you stopped or left early, did you return and finish?</p>
-      <div class="choices" data-name="q2">
+      <div class="choices" data-name="q2" data-type="radio">
         <label class="choice"><input type="radio" name="q2" value="Yes"><span class="choice-marker"></span><span class="choice-text">Yes</span></label>
         <label class="choice"><input type="radio" name="q2" value="No"><span class="choice-marker"></span><span class="choice-text">No</span></label>
         <label class="choice"><input type="radio" name="q2" value="I didn't leave early"><span class="choice-marker"></span><span class="choice-text">I didn't leave early</span></label>
@@ -494,7 +408,7 @@
     <div class="section" id="section-3">
       <p class="question-num">Question 3 of 21</p>
       <p class="question-text">Did you stay physically contained in your practice space without pacing or exiting the area?</p>
-      <div class="choices" data-name="q3">
+      <div class="choices" data-name="q3" data-type="radio">
         <label class="choice"><input type="radio" name="q3" value="Yes"><span class="choice-marker"></span><span class="choice-text">Yes</span></label>
         <label class="choice"><input type="radio" name="q3" value="No"><span class="choice-marker"></span><span class="choice-text">No</span></label>
       </div>
@@ -505,16 +419,17 @@
       </div>
     </div>
 
-    <!-- SECTION 5: Q4 -->
+    <!-- SECTION 5: Q4 — MULTI SELECT -->
     <div class="section" id="section-4">
       <p class="question-num">Question 4 of 21</p>
       <p class="question-text">Were you present in the field during the practice?</p>
-      <div class="choices" data-name="q4">
-        <label class="choice"><input type="radio" name="q4" value="Physically"><span class="choice-marker"></span><span class="choice-text">Physically</span></label>
-        <label class="choice"><input type="radio" name="q4" value="Mentally"><span class="choice-marker"></span><span class="choice-text">Mentally</span></label>
-        <label class="choice"><input type="radio" name="q4" value="Emotionally"><span class="choice-marker"></span><span class="choice-text">Emotionally</span></label>
-        <label class="choice"><input type="radio" name="q4" value="All of the above"><span class="choice-marker"></span><span class="choice-text">All of the above</span></label>
-        <label class="choice"><input type="radio" name="q4" value="None of the above"><span class="choice-marker"></span><span class="choice-text">None of the above</span></label>
+      <p class="multi-hint">Select all that apply</p>
+      <div class="choices" data-name="q4" data-type="checkbox">
+        <label class="choice"><input type="checkbox" name="q4" value="Physically"><span class="choice-marker square"></span><span class="choice-text">Physically</span></label>
+        <label class="choice"><input type="checkbox" name="q4" value="Mentally"><span class="choice-marker square"></span><span class="choice-text">Mentally</span></label>
+        <label class="choice"><input type="checkbox" name="q4" value="Emotionally"><span class="choice-marker square"></span><span class="choice-text">Emotionally</span></label>
+        <label class="choice"><input type="checkbox" name="q4" value="All of the above"><span class="choice-marker square"></span><span class="choice-text">All of the above</span></label>
+        <label class="choice"><input type="checkbox" name="q4" value="None of the above"><span class="choice-marker square"></span><span class="choice-text">None of the above</span></label>
       </div>
       <p class="error-msg" id="err-q4"></p>
       <div class="nav">
@@ -527,7 +442,7 @@
     <div class="section" id="section-5">
       <p class="question-num">Question 5 of 21</p>
       <p class="question-text">Did you complete each exercise to your full sustainable capacity (physically, mentally, and emotionally)?</p>
-      <div class="choices" data-name="q5">
+      <div class="choices" data-name="q5" data-type="radio">
         <label class="choice"><input type="radio" name="q5" value="Yes"><span class="choice-marker"></span><span class="choice-text">Yes</span></label>
         <label class="choice"><input type="radio" name="q5" value="No – held back"><span class="choice-marker"></span><span class="choice-text">No – I noticed times I held back or did less than I could (physically, mentally, or emotionally)</span></label>
         <label class="choice"><input type="radio" name="q5" value="No – pushed too much"><span class="choice-marker"></span><span class="choice-text">No – I pushed a little too much or beyond what was sustainable (physically, mentally, or emotionally)</span></label>
@@ -543,7 +458,7 @@
     <div class="section" id="section-6">
       <p class="question-num">Question 6 of 21</p>
       <p class="question-text">Did you pause excessively, lay down, exit any postures before the end, fidget, pace, or dissociate during transitions between postures?</p>
-      <div class="choices" data-name="q6">
+      <div class="choices" data-name="q6" data-type="radio">
         <label class="choice"><input type="radio" name="q6" value="No"><span class="choice-marker"></span><span class="choice-text">No</span></label>
         <label class="choice"><input type="radio" name="q6" value="Yes – pausing, laying down or exiting early"><span class="choice-marker"></span><span class="choice-text">Yes – pausing, laying down or exiting early</span></label>
         <label class="choice"><input type="radio" name="q6" value="Yes – fidgeting, pacing or dissociating during transitions"><span class="choice-marker"></span><span class="choice-text">Yes – fidgeting, pacing or dissociating during transitions</span></label>
@@ -559,7 +474,7 @@
     <div class="section" id="section-7">
       <p class="question-num">Question 7 of 21</p>
       <p class="question-text">Did you alter the practice to suit your preference—such as skipping exercises (including savasana), changing form, or adjusting timing?</p>
-      <div class="choices" data-name="q7">
+      <div class="choices" data-name="q7" data-type="radio">
         <label class="choice"><input type="radio" name="q7" value="No"><span class="choice-marker"></span><span class="choice-text">No</span></label>
         <label class="choice"><input type="radio" name="q7" value="Yes"><span class="choice-marker"></span><span class="choice-text">Yes</span></label>
       </div>
@@ -574,7 +489,7 @@
     <div class="section" id="section-8">
       <p class="question-num">Question 8 of 21</p>
       <p class="question-text">Did you start your practice today without delay or excuses?</p>
-      <div class="choices" data-name="q8">
+      <div class="choices" data-name="q8" data-type="radio">
         <label class="choice"><input type="radio" name="q8" value="Yes"><span class="choice-marker"></span><span class="choice-text">Yes</span></label>
         <label class="choice"><input type="radio" name="q8" value="Mostly – small delays noticed"><span class="choice-marker"></span><span class="choice-text">Mostly – I noticed small delays or negotiations</span></label>
         <label class="choice"><input type="radio" name="q8" value="No – delayed or made excuses"><span class="choice-marker"></span><span class="choice-text">No – I delayed, made excuses, or put other things first</span></label>
@@ -590,7 +505,7 @@
     <div class="section" id="section-9">
       <p class="question-num">Question 9 of 21</p>
       <p class="question-text">Did you change anything around you—like lighting, sound, objects, or space setup—while practicing?</p>
-      <div class="choices" data-name="q9">
+      <div class="choices" data-name="q9" data-type="radio">
         <label class="choice"><input type="radio" name="q9" value="No"><span class="choice-marker"></span><span class="choice-text">No</span></label>
         <label class="choice"><input type="radio" name="q9" value="Mostly – minor adjustments noticed"><span class="choice-marker"></span><span class="choice-text">Mostly – Minor adjustments I noticed</span></label>
         <label class="choice"><input type="radio" name="q9" value="Yes – changed or controlled environment"><span class="choice-marker"></span><span class="choice-text">Yes – I changed, adjusted, or controlled my environment</span></label>
@@ -606,7 +521,7 @@
     <div class="section" id="section-10">
       <p class="question-num">Question 10 of 21</p>
       <p class="question-text">Was your breath nasal, continuous, and unbroken throughout the entire practice?</p>
-      <div class="choices" data-name="q10">
+      <div class="choices" data-name="q10" data-type="radio">
         <label class="choice"><input type="radio" name="q10" value="Yes"><span class="choice-marker"></span><span class="choice-text">Yes</span></label>
         <label class="choice"><input type="radio" name="q10" value="No"><span class="choice-marker"></span><span class="choice-text">No</span></label>
       </div>
@@ -621,7 +536,7 @@
     <div class="section" id="section-11">
       <p class="question-num">Question 11 of 21</p>
       <p class="question-text">Did your breath stay unforced, responsive to sensation, and natural under pressure?</p>
-      <div class="choices" data-name="q11">
+      <div class="choices" data-name="q11" data-type="radio">
         <label class="choice"><input type="radio" name="q11" value="Yes"><span class="choice-marker"></span><span class="choice-text">Yes</span></label>
         <label class="choice"><input type="radio" name="q11" value="No"><span class="choice-marker"></span><span class="choice-text">No</span></label>
       </div>
@@ -636,7 +551,7 @@
     <div class="section" id="section-12">
       <p class="question-num">Question 12 of 21</p>
       <p class="question-text">During movement, did your breath remain nasal, unforced, in sync with movement, and honest to your inner state?</p>
-      <div class="choices" data-name="q12">
+      <div class="choices" data-name="q12" data-type="radio">
         <label class="choice"><input type="radio" name="q12" value="Yes"><span class="choice-marker"></span><span class="choice-text">Yes</span></label>
         <label class="choice"><input type="radio" name="q12" value="No"><span class="choice-marker"></span><span class="choice-text">No</span></label>
       </div>
@@ -651,7 +566,7 @@
     <div class="section" id="section-13">
       <p class="question-num">Question 13 of 21</p>
       <p class="question-text">During moments of emotional intensity or discomfort, did you keep breathing fully without restriction?</p>
-      <div class="choices" data-name="q13">
+      <div class="choices" data-name="q13" data-type="radio">
         <label class="choice"><input type="radio" name="q13" value="Yes – kept breathing"><span class="choice-marker"></span><span class="choice-text">Yes, I kept breathing during emotional intensity/discomfort</span></label>
         <label class="choice"><input type="radio" name="q13" value="No – struggled to breathe"><span class="choice-marker"></span><span class="choice-text">No, I noticed that I struggled to breathe during emotional intensity/discomfort</span></label>
         <label class="choice"><input type="radio" name="q13" value="No emotional intensity noted"><span class="choice-marker"></span><span class="choice-text">No – No emotional intensity/discomfort noted</span></label>
@@ -667,7 +582,7 @@
     <div class="section" id="section-14">
       <p class="question-num">Question 14 of 21</p>
       <p class="question-text">Were you aware of your breath at all times during the practice?</p>
-      <div class="choices" data-name="q14">
+      <div class="choices" data-name="q14" data-type="radio">
         <label class="choice"><input type="radio" name="q14" value="Yes"><span class="choice-marker"></span><span class="choice-text">Yes</span></label>
         <label class="choice"><input type="radio" name="q14" value="No"><span class="choice-marker"></span><span class="choice-text">No</span></label>
       </div>
@@ -682,7 +597,7 @@
     <div class="section" id="section-15">
       <p class="question-num">Question 15 of 21</p>
       <p class="question-text">Did you allow necessary, authentic sounds (e.g. sighs, tones, releases) when your body needed it?</p>
-      <div class="choices" data-name="q15">
+      <div class="choices" data-name="q15" data-type="radio">
         <label class="choice"><input type="radio" name="q15" value="Yes"><span class="choice-marker"></span><span class="choice-text">Yes</span></label>
         <label class="choice"><input type="radio" name="q15" value="No"><span class="choice-marker"></span><span class="choice-text">No</span></label>
       </div>
@@ -697,7 +612,7 @@
     <div class="section" id="section-16">
       <p class="question-num">Question 16 of 21</p>
       <p class="question-text">Did you notice your mind or attention drift during practice?</p>
-      <div class="choices" data-name="q16">
+      <div class="choices" data-name="q16" data-type="radio">
         <label class="choice"><input type="radio" name="q16" value="No drift occurred"><span class="choice-marker"></span><span class="choice-text">No drift occurred</span></label>
         <label class="choice"><input type="radio" name="q16" value="Yes – immediately returned"><span class="choice-marker"></span><span class="choice-text">Yes, but I immediately returned</span></label>
         <label class="choice"><input type="radio" name="q16" value="Yes – returned after a pause"><span class="choice-marker"></span><span class="choice-text">Yes, I returned after a pause</span></label>
@@ -715,7 +630,7 @@
     <div class="section" id="section-17">
       <p class="question-num">Question 17 of 21</p>
       <p class="question-text">Did any stories, judgments, or blame arise during practice?</p>
-      <div class="choices" data-name="q17">
+      <div class="choices" data-name="q17" data-type="radio">
         <label class="choice"><input type="radio" name="q17" value="No"><span class="choice-marker"></span><span class="choice-text">No</span></label>
         <label class="choice"><input type="radio" name="q17" value="Yes – noticed and let pass"><span class="choice-marker"></span><span class="choice-text">Yes, but I noticed and let them pass</span></label>
         <label class="choice"><input type="radio" name="q17" value="Yes – persisted or shaped experience"><span class="choice-marker"></span><span class="choice-text">Yes, they persisted or shaped my experience</span></label>
@@ -731,7 +646,7 @@
     <div class="section" id="section-18">
       <p class="question-num">Question 18 of 21</p>
       <p class="question-text">Did you notice any fixed beliefs, assumptions, or rigid positions arise?</p>
-      <div class="choices" data-name="q18">
+      <div class="choices" data-name="q18" data-type="radio">
         <label class="choice"><input type="radio" name="q18" value="No"><span class="choice-marker"></span><span class="choice-text">No</span></label>
         <label class="choice"><input type="radio" name="q18" value="Yes – questioned or softened"><span class="choice-marker"></span><span class="choice-text">Yes, but I questioned or softened them</span></label>
         <label class="choice"><input type="radio" name="q18" value="Yes – held onto or acted from them"><span class="choice-marker"></span><span class="choice-text">Yes, I held onto them or acted from them</span></label>
@@ -747,7 +662,7 @@
     <div class="section" id="section-19">
       <p class="question-num">Question 19 of 21</p>
       <p class="question-text">During practice, did you stay engaged with the current exercise without replaying the past or worrying about what's next?</p>
-      <div class="choices" data-name="q19">
+      <div class="choices" data-name="q19" data-type="radio">
         <label class="choice"><input type="radio" name="q19" value="Yes – stayed with current rep"><span class="choice-marker"></span><span class="choice-text">Yes, I stayed with the current rep</span></label>
         <label class="choice"><input type="radio" name="q19" value="Mostly – caught drifting into story or forecast"><span class="choice-marker"></span><span class="choice-text">Mostly, but I caught myself drifting into story or forecast</span></label>
         <label class="choice"><input type="radio" name="q19" value="No – replaying past or anticipating next"><span class="choice-marker"></span><span class="choice-text">No, I was replaying past reps or anticipating next ones</span></label>
@@ -763,7 +678,7 @@
     <div class="section" id="section-20">
       <p class="question-num">Question 20 of 21</p>
       <p class="question-text">Did you experience any inner conflict, division, or contradiction in practice (e.g. arguing with yourself, resisting instructions, debating next steps)?</p>
-      <div class="choices" data-name="q20">
+      <div class="choices" data-name="q20" data-type="radio">
         <label class="choice"><input type="radio" name="q20" value="No"><span class="choice-marker"></span><span class="choice-text">No</span></label>
         <label class="choice"><input type="radio" name="q20" value="Yes – kept practicing while noticing conflict"><span class="choice-marker"></span><span class="choice-text">Yes, but I kept practicing while noticing the conflict</span></label>
         <label class="choice"><input type="radio" name="q20" value="Yes – stayed unresolved or took over"><span class="choice-marker"></span><span class="choice-text">Yes, it stayed unresolved or took over</span></label>
@@ -779,7 +694,7 @@
     <div class="section" id="section-21">
       <p class="question-num">Question 21 of 21</p>
       <p class="question-text">Did your thinking stay clear and coherent, focused on completing today's practice?</p>
-      <div class="choices" data-name="q21">
+      <div class="choices" data-name="q21" data-type="radio">
         <label class="choice"><input type="radio" name="q21" value="Yes"><span class="choice-marker"></span><span class="choice-text">Yes</span></label>
         <label class="choice"><input type="radio" name="q21" value="Mostly – minor confusion or drift"><span class="choice-marker"></span><span class="choice-text">Mostly, with minor confusion or drift</span></label>
         <label class="choice"><input type="radio" name="q21" value="No – scattered or unclear"><span class="choice-marker"></span><span class="choice-text">No, I felt scattered or unclear</span></label>
@@ -803,16 +718,16 @@
     <!-- SUCCESS STATE -->
     <div class="section" id="section-success">
       <div class="submit-state">
-        <div class="glyph">◇</div>
+        <img src="IOQF-Vertical-Logo.png" alt="Institute of Quantum Frequency" />
         <h2>Entry Received</h2>
-        <p>Your Frequency Activation Protocol Daily Index has been submitted.<br>A confirmation has been sent to your email address.</p>
+        <p>Your Daily Check-In has been submitted.<br>Your Daily Frequency Report will be sent to your email address.</p>
       </div>
     </div>
 
     <!-- ERROR STATE -->
     <div class="section" id="section-error">
       <div class="submit-state">
-        <div class="glyph" style="color: var(--error)">✕</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:48px;color:var(--error);margin-bottom:24px;">✕</div>
         <h2>Submission Failed</h2>
         <p>Something went wrong. Please try again or contact support.</p>
         <div class="nav" style="justify-content:center; margin-top:32px;">
@@ -825,17 +740,27 @@
 </div>
 
 <script>
-  const SCRIPT_URL = 'YOUR_APPS_SCRIPT_WEB_APP_URL_HERE';
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwdTgPK0Uqf4X_FO-IXSNfkZdz9e4hJP6efpOHKFe-Siab92skgeLgoxKJ3tjaBTJz5/exec';
 
   let currentSection = 0;
   const totalSections = 22;
 
   document.querySelectorAll('.choices').forEach(group => {
+    const isCheckbox = group.dataset.type === 'checkbox';
     group.querySelectorAll('.choice').forEach(choice => {
       choice.addEventListener('click', () => {
-        group.querySelectorAll('.choice').forEach(c => c.classList.remove('selected'));
-        choice.classList.add('selected');
-        choice.querySelector('input[type="radio"]').checked = true;
+        const input = choice.querySelector('input');
+        if (isCheckbox) {
+          input.checked = !input.checked;
+          choice.classList.toggle('selected', input.checked);
+        } else {
+          group.querySelectorAll('.choice').forEach(c => {
+            c.classList.remove('selected');
+            c.querySelector('input').checked = false;
+          });
+          choice.classList.add('selected');
+          input.checked = true;
+        }
         const name = group.dataset.name;
         const errEl = document.getElementById('err-' + name);
         if (errEl) errEl.textContent = '';
@@ -872,28 +797,11 @@
       const email   = emailInput.value.trim();
       const confirm = emailConfirm.value.trim();
       const errEl   = document.getElementById('emailError');
-
-      if (!email) {
-        errEl.textContent = 'Please enter your email address.';
-        emailInput.classList.add('error-field');
-        return false;
-      }
+      if (!email) { errEl.textContent = 'Please enter your email address.'; emailInput.classList.add('error-field'); return false; }
       const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRe.test(email)) {
-        errEl.textContent = 'Please enter a valid email address.';
-        emailInput.classList.add('error-field');
-        return false;
-      }
-      if (!confirm) {
-        errEl.textContent = 'Please confirm your email address.';
-        emailConfirm.classList.add('error-field');
-        return false;
-      }
-      if (email.toLowerCase() !== confirm.toLowerCase()) {
-        errEl.textContent = 'Email addresses do not match. Please check and try again.';
-        emailConfirm.classList.add('error-field');
-        return false;
-      }
+      if (!emailRe.test(email)) { errEl.textContent = 'Please enter a valid email address.'; emailInput.classList.add('error-field'); return false; }
+      if (!confirm) { errEl.textContent = 'Please confirm your email address.'; emailConfirm.classList.add('error-field'); return false; }
+      if (email.toLowerCase() !== confirm.toLowerCase()) { errEl.textContent = 'Email addresses do not match. Please check and try again.'; emailConfirm.classList.add('error-field'); return false; }
       errEl.textContent = '';
       emailInput.classList.remove('error-field');
       emailConfirm.classList.remove('error-field');
@@ -902,11 +810,22 @@
 
     if (idx >= 1 && idx <= 21) {
       const qName = 'q' + idx;
-      const checked = document.querySelector('input[name="' + qName + '"]:checked');
-      if (!checked) {
-        const errEl = document.getElementById('err-' + qName);
-        if (errEl) errEl.textContent = 'Please select an answer to continue.';
-        return false;
+      const group = document.querySelector('[data-name="' + qName + '"]');
+      const isCheckbox = group && group.dataset.type === 'checkbox';
+      if (isCheckbox) {
+        const checked = group.querySelectorAll('input:checked');
+        if (checked.length === 0) {
+          const errEl = document.getElementById('err-' + qName);
+          if (errEl) errEl.textContent = 'Please select at least one answer to continue.';
+          return false;
+        }
+      } else {
+        const checked = document.querySelector('input[name="' + qName + '"]:checked');
+        if (!checked) {
+          const errEl = document.getElementById('err-' + qName);
+          if (errEl) errEl.textContent = 'Please select an answer to continue.';
+          return false;
+        }
       }
       return true;
     }
@@ -918,38 +837,30 @@
     document.getElementById('section-' + currentSection).classList.remove('active');
     currentSection = idx;
     const target = document.getElementById('section-' + currentSection);
-    if (target) {
-      target.classList.add('active');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-    updateProgress();
+    if (target) { target.classList.add('active'); window.scrollTo({ top: 0, behavior: 'smooth' }); }
   }
 
   function nextSection() {
     if (!validateSection(currentSection)) return;
-    if (currentSection < totalSections - 1) {
-      goToSection(currentSection + 1);
-    }
+    if (currentSection < totalSections - 1) goToSection(currentSection + 1);
   }
 
   function prevSection() {
-    if (currentSection > 0) {
-      goToSection(currentSection - 1);
-    }
-  }
-
-  function updateProgress() {
-    const real = Math.min(currentSection + 1, totalSections);
-    const pct  = (real / totalSections) * 100;
-    document.getElementById('progressFill').style.width = pct + '%';
-    document.getElementById('progressCount').textContent = real + ' of ' + totalSections;
+    if (currentSection > 0) goToSection(currentSection - 1);
   }
 
   function collectData() {
     const data = { email: emailInput.value.trim().toLowerCase() };
     for (let i = 1; i <= 21; i++) {
-      const checked = document.querySelector('input[name="q' + i + '"]:checked');
-      data['q' + i] = checked ? checked.value : '';
+      const qName = 'q' + i;
+      const group = document.querySelector('[data-name="' + qName + '"]');
+      if (group && group.dataset.type === 'checkbox') {
+        const checked = Array.from(group.querySelectorAll('input:checked')).map(el => el.value);
+        data[qName] = checked.join(', ');
+      } else {
+        const checked = document.querySelector('input[name="' + qName + '"]:checked');
+        data[qName] = checked ? checked.value : '';
+      }
     }
     return data;
   }
@@ -959,8 +870,6 @@
 
     document.getElementById('section-21').classList.remove('active');
     document.getElementById('section-submitting').classList.add('active');
-    document.getElementById('progressFill').style.width = '100%';
-    document.getElementById('progressCount').textContent = '22 of 22';
 
     const data = collectData();
 
@@ -971,10 +880,8 @@
         headers: { 'Content-Type': 'text/plain' },
         body: JSON.stringify(data)
       });
-
       document.getElementById('section-submitting').classList.remove('active');
       document.getElementById('section-success').classList.add('active');
-
     } catch (err) {
       document.getElementById('section-submitting').classList.remove('active');
       document.getElementById('section-error').classList.add('active');
